@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface TransitService {
-    ResponseEntity<Transit> addTransit();
+    ResponseEntity<Transit> addTransit(Transit transit);
 }

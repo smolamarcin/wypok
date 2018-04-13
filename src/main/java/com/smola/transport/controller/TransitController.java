@@ -15,8 +15,8 @@ public class TransitController {
     @Autowired
     private TransitService transitService;
 
-    @PostMapping()
-    ResponseEntity<Transit> addTransit() {
-        return transitService.addTransit();
+    @PostMapping
+    ResponseEntity<Transit> addTransit(@RequestBody Transit transit) {
+        return transitService.addTransit(transit);
     }
 }
