@@ -1,57 +1,28 @@
 package com.smola.transport.model;
 
-import java.math.BigDecimal;
+import com.google.maps.model.Distance;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
 public class Transit {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String sourceAddress;
     private String destinationAddress;
     private BigDecimal price;
-    private String date;
-
-    public Transit() {
-    }
-
-    public Transit(String sourceAddress, String destinationAddress) {
-        this.sourceAddress = sourceAddress;
-        this.destinationAddress = destinationAddress;
-    }
-
-    public Transit (TransitBuilder transitBuilder) {
-        this.sourceAddress = transitBuilder.sourceAddress;
-        this.destinationAddress = transitBuilder.destinationAddress;
-        this.price = transitBuilder.price;
-        this.date = transitBuilder.date;
-    }
+    private Distance distance;
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime date;
 
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
-    }
-
-    public static class TransitBuilder {
-        private final String sourceAddress;
-        private final String destinationAddress;
-        private BigDecimal price;
-        private String date;
-
-        public TransitBuilder(String sourceAddress, String destinationAddress) {
-            this.sourceAddress = sourceAddress;
-            this.destinationAddress = destinationAddress;
-        }
-
-        public TransitBuilder setPrice(BigDecimal price) {
-            this.price = price;
-            return this;
-        }
-
-        public TransitBuilder setDate(String date) {
-            this.date = date;
-            return this;
-        }
-
-        public Transit build() {
-            return new Transit(this);
-        }
     }
 
     public String getSourceAddress() {
@@ -78,7 +49,23 @@ public class Transit {
         this.price = price;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Distance getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Distance distance) {
+        this.distance = distance;
     }
 }
