@@ -25,14 +25,19 @@ class DistanceCalculatorImpl implements DistanceCalculator {
                 .apiKey(apiToken)
                 .build();
         DistanceMatrixApiRequest distanceMatrixApiRequest = DistanceMatrixApi.newRequest(context);
+        DistanceMatrix matrix;
         try {
-            DistanceMatrix matrix = distanceMatrixApiRequest
+            matrix = distanceMatrixApiRequest
                     .mode(TravelMode.DRIVING)
                     .units(Unit.METRIC)
                     .origins(sourceAddress)
                     .destinations(destinationAddress)
                     .await();
-            distance = Optional.of(matrix.rows[0].elements[0].distance);
+            if (matrix.rows[0].elements[0].distance == null) {
+                distance = Optional.empty();
+            } else {
+                distance = Optional.of(matrix.rows[0].elements[0].distance);
+            }
         } catch (ApiException | IOException | InterruptedException e) {
             e.printStackTrace();
         }

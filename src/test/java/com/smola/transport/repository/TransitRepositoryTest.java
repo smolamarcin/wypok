@@ -29,10 +29,12 @@ public class TransitRepositoryTest {
         LocalDate startDate = LocalDate.of(1994, 7, 21);
         LocalDate endDate = LocalDate.of(1994, 7, 22);
         List<Transit> all = transitRepository.findByDateBetween(startDate,endDate);
-        assertEquals(2, all.size());
+
         for (Transit transit : all) {
-            assertEquals(1994,transit.getDate().getYear());
+            LocalDate date = transit.getDate();
+            assertEquals(1994, date.getYear());
         }
+        assertEquals(2, all.size());
     }
 
     private void fillUpDbWithDummyData() {
