@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/reports")
 public class ReportController {
+
     @PostMapping("/daily")
     ResponseEntity<?> getDailyReport(){
         return ResponseEntity.ok().build();

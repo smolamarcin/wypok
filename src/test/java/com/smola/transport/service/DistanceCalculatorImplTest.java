@@ -1,23 +1,31 @@
 package com.smola.transport.service;
 
-import com.google.maps.errors.ApiException;
 import com.google.maps.model.Distance;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
+import java.util.Optional;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class DistanceCalculatorImplTest {
-    private DistanceCalculatorImpl distanceCalculator = new DistanceCalculatorImpl();
+
+    @Autowired
+    private DistanceCalculator distanceCalculator;
+
     @Test
-    public void shouldCalculateDistance() throws InterruptedException, ApiException, IOException {
+    public void shouldCalculateDistance() {
         //given
         String sourceAddress = "ul. Zakręt 8, Poznań";
         String destinationAddress = "Złota 44, Warszawa";
         //when
-        Distance distance = distanceCalculator.calculate(sourceAddress, destinationAddress);
+        Optional<Distance> distance = distanceCalculator.calculate(sourceAddress, destinationAddress);
         //then
-        assertEquals(distance.inMeters,1000L);
+        assertEquals(300_000, distance.inMeters,30_000);
     }
+
 }

@@ -17,7 +17,6 @@ public class Transit {
     private String destinationAddress;
     private BigDecimal price;
     private Distance distance;
-//    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime date;
 
 

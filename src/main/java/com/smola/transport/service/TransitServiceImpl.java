@@ -9,21 +9,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class TransitServiceImpl implements TransitService {
-
-    @Autowired
+class TransitServiceImpl implements TransitService {
     private TransitRepository transitRepository;
+    private DistanceCalculatorImpl distanceCalculator;
 
     @Autowired
-    private DistanceCalculatorImpl distanceCalculator;
+    public TransitServiceImpl(TransitRepository transitRepository, DistanceCalculatorImpl distanceCalculator) {
+        this.transitRepository = transitRepository;
+        this.distanceCalculator = distanceCalculator;
+    }
 
     @Override
     public ResponseEntity<Transit> addTransit(Transit transit) {
-        Distance distance = distanceCalculator.calculate(transit.getSourceAddress(), transit.getDestinationAddress());
-        transit.setDistance(distance);
-        return ResponseEntity.status(HttpStatus.CREATED).body(transitRepository.save(transit));
+        ResponseEntity<Transit> responseEntity;
+        Optional<Distance> distance = distanceCalculator.calculate(transit.getSourceAddress(), transit.getDestinationAddress());
+        if (distance.isPresent()){
+            transit.setDistance(distance.get());
+            responseEntity =  ResponseEntity.status(HttpStatus.CREATED).body(transitRepository.save(transit));
+        } else {
+            responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return responseEntity;
     }
 
     @Override

@@ -1,28 +1,41 @@
 package com.smola.transport.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.Distance;
-import com.google.maps.model.GeocodingResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.TravelMode;
+import com.google.maps.model.Unit;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
-public class DistanceCalculatorImpl {
-    @Autowired
-    private GoogleApiImpl googleApi;
+@Service
+class DistanceCalculatorImpl implements DistanceCalculator {
     @Value("${google.api.key}")
     private String apiToken;
 
-    public Distance calculate(String sourceAddress, String destinationAddress) {
+    public Optional<Distance> calculate(String sourceAddress, String destinationAddress) {
+        Optional<Distance> distance = Optional.empty();
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiToken)
                 .build();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return new Distance();
+        DistanceMatrixApiRequest distanceMatrixApiRequest = DistanceMatrixApi.newRequest(context);
+        try {
+            DistanceMatrix matrix = distanceMatrixApiRequest
+                    .mode(TravelMode.DRIVING)
+                    .units(Unit.METRIC)
+                    .origins(sourceAddress)
+                    .destinations(destinationAddress)
+                    .await();
+            distance = Optional.of(matrix.rows[0].elements[0].distance);
+        } catch (ApiException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return distance;
     }
 }

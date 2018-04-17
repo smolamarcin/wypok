@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/transits")
 public class TransitController {
-    @Autowired
     private TransitService transitService;
+
+    @Autowired
+    public TransitController(TransitService transitService) {
+        this.transitService = transitService;
+    }
 
     @PostMapping
     ResponseEntity<Transit> addTransit(@RequestBody Transit transit) {
