@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Transit {
@@ -17,10 +17,10 @@ public class Transit {
     private String destinationAddress;
     private BigDecimal price;
     private Distance distance;
-    private LocalDateTime date;
+    private LocalDate date;
 
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -48,7 +48,7 @@ public class Transit {
         this.price = price;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

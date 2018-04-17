@@ -9,7 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DistanceCalculatorImplTest {
@@ -25,7 +26,7 @@ public class DistanceCalculatorImplTest {
         //when
         Optional<Distance> distance = distanceCalculator.calculate(sourceAddress, destinationAddress);
         //then
-        assertEquals(300_000, distance.inMeters,30_000);
+        assertEquals(300_000, distance.get().inMeters,30_000);
     }
 
 }
