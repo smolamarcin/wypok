@@ -1,6 +1,5 @@
 package com.smola.transport.service.reports;
 
-import com.smola.transport.controller.ReportController;
 import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.model.reports.SummaryReport;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +18,18 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
     private TransitRepository transitRepository;
-    private ReportCalculator<BigDecimal> reportCalculator;
+    @Resource(name = "summaryPriceCalculator")
+    private ReportCalculator<BigDecimal> summaryPriceCalculator;
+    @Resource(name = "summaryDistanceCalculator")
+    private ReportCalculator<Distance> summaryDistanceCalculator;
 
     @Autowired
-    public ReportServiceImpl(TransitRepository transitRepository, ReportCalculator reportCalculator) {
+    public ReportServiceImpl(TransitRepository transitRepository
+            , SummaryPriceCalculator summaryPriceCalculator
+            , SummaryDistanceCalculator summaryDistanceCalculator) {
         this.transitRepository = transitRepository;
-        this.reportCalculator = reportCalculator;
+        this.summaryPriceCalculator = summaryPriceCalculator;
+        this.summaryDistanceCalculator = summaryDistanceCalculator;
     }
 
     @Override
@@ -41,7 +47,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private Report calculateReport(List<Transit> transits) {
-        BigDecimal summaryPrice = reportCalculator.calculate(transits);
+        BigDecimal summaryPrice = summaryPriceCalculator.calculate(transits);
         Distance summaryDistance = calculateSummaryDistance(transits);
 
         return new SummaryReport(summaryPrice, summaryDistance);
