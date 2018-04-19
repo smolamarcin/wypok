@@ -17,8 +17,8 @@ public class Transit {
     private String sourceAddress;
     private String destinationAddress;
     private BigDecimal price;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Meters meters;
+    @Embedded
+    private Distance distance = new Distance(0);
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
@@ -64,12 +64,12 @@ public class Transit {
         this.id = id;
     }
 
-    public Meters getMeters() {
-        return meters;
+    public Distance getDistance() {
+        return distance;
     }
 
-    public void setMeters(Meters meters) {
-        this.meters = meters;
+    public void setDistance(Distance distance) {
+        this.distance = distance;
     }
 
 }

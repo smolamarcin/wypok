@@ -40,7 +40,7 @@ public class ReportServiceImpl implements ReportService {
     //TODO: add logic here!!!
     private Report calculateReport(List<Transit> transits) {
         BigDecimal summaryPrice = calculateSummaryPrice(transits);
-//        Meters summaryDistance = calculateSummaryDistance(transits);
+//        Distance summaryDistance = calculateSummaryDistance(transits);
 
         return new SummaryReport(summaryPrice);
     }
