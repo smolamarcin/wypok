@@ -24,22 +24,16 @@ public class ReportServiceImpl implements ReportService {
     private ReportCalculator<Distance> summaryDistanceCalculator;
 
     @Autowired
-    public ReportServiceImpl(TransitRepository transitRepository
-            , SummaryPriceCalculator summaryPriceCalculator
-            , SummaryDistanceCalculator summaryDistanceCalculator) {
+    public ReportServiceImpl(TransitRepository transitRepository) {
         this.transitRepository = transitRepository;
-        this.summaryPriceCalculator = summaryPriceCalculator;
-        this.summaryDistanceCalculator = summaryDistanceCalculator;
     }
 
-    @Override
     public ResponseEntity<Report> getDailyReport(LocalDate startDate, LocalDate endDate) {
         List<Transit> transits = transitRepository.findByDateBetween(startDate, endDate);
         Report dailyReport = calculateReport(transits);
         return ResponseEntity.status(HttpStatus.OK).body(dailyReport);
     }
 
-    @Override
     public ResponseEntity<Report> getSummaryReport() {
         List<Transit> transits = transitRepository.findAll();
         Report summaryReport = calculateReport(transits);
@@ -48,16 +42,9 @@ public class ReportServiceImpl implements ReportService {
 
     private Report calculateReport(List<Transit> transits) {
         BigDecimal summaryPrice = summaryPriceCalculator.calculate(transits);
-        Distance summaryDistance = calculateSummaryDistance(transits);
+        Distance summaryDistance = summaryDistanceCalculator.calculate(transits);
 
         return new SummaryReport(summaryPrice, summaryDistance);
-    }
-
-    private Distance calculateSummaryDistance(List<Transit> transits) {
-        long summaryDistance = transits.stream()
-                .map(Transit::getDistance)
-                .mapToLong(Distance::getMeters).sum();
-        return new Distance(summaryDistance);
     }
 
 
