@@ -28,13 +28,13 @@ public class TransitRepositoryTest {
     public void shouldReturnTransitsBetweenDate() {
         LocalDate startDate = LocalDate.of(1994, 7, 21);
         LocalDate endDate = LocalDate.of(1994, 7, 22);
-        List<Transit> all = transitRepository.findByDateBetween(startDate,endDate);
+        List<Transit> transitsBetweenDates = transitRepository.findByDateBetween(startDate,endDate);
 
-        for (Transit transit : all) {
+        for (Transit transit : transitsBetweenDates) {
             LocalDate date = transit.getDate();
             assertEquals(1994, date.getYear());
         }
-        assertEquals(2, all.size());
+        assertEquals(2, transitsBetweenDates.size());
     }
 
     private void fillUpDbWithDummyData() {

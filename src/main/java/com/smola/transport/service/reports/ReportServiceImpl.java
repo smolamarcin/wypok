@@ -1,5 +1,6 @@
 package com.smola.transport.service.reports;
 
+import com.smola.transport.controller.ReportController;
 import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.model.reports.SummaryReport;
@@ -17,10 +18,12 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
     private TransitRepository transitRepository;
+    private ReportCalculator<BigDecimal> reportCalculator;
 
     @Autowired
-    public ReportServiceImpl(TransitRepository transitRepository) {
+    public ReportServiceImpl(TransitRepository transitRepository, ReportCalculator reportCalculator) {
         this.transitRepository = transitRepository;
+        this.reportCalculator = reportCalculator;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private Report calculateReport(List<Transit> transits) {
-        BigDecimal summaryPrice = calculateSummaryPrice(transits);
+        BigDecimal summaryPrice = reportCalculator.calculate(transits);
         Distance summaryDistance = calculateSummaryDistance(transits);
 
         return new SummaryReport(summaryPrice, summaryDistance);
@@ -51,10 +54,5 @@ public class ReportServiceImpl implements ReportService {
         return new Distance(summaryDistance);
     }
 
-    private BigDecimal calculateSummaryPrice(List<Transit> transits) {
-        return transits.stream()
-                .map(Transit::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
 }
