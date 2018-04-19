@@ -1,6 +1,6 @@
 package com.smola.transport.controller;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smola.transport.model.Transit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,8 +32,9 @@ public class TransitControllerTest {
     public void shouldReturn_http400_whenTryingToAdd_InvalidTransit() throws Exception {
         //given
         Transit invalidTransit = createInvalidTransit();
-        Gson gson = new Gson();
-        String transitJSON = gson.toJson(invalidTransit);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        String transitJSON = objectMapper.writeValueAsString(invalidTransit);
 
         //when - then
         this.mockMvc.perform(post(END_POINT)
@@ -47,8 +48,11 @@ public class TransitControllerTest {
     public void shouldReturn_http201_whenTryingToAdd_CorrectTransit() throws Exception {
         //given
         Transit correctTransit = createCorrectTransit();
-        Gson gson = new Gson();
-        String transitJSON = gson.toJson(correctTransit);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+
+        String transitJSON = objectMapper.writeValueAsString(correctTransit);
         //when - then
         this.mockMvc.perform(post(END_POINT)
                 .contentType(MediaType.APPLICATION_JSON)
