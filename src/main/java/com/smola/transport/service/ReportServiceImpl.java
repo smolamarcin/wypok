@@ -1,6 +1,6 @@
 package com.smola.transport.service;
 
-import com.google.maps.model.Distance;
+import com.smola.transport.model.Distance;
 import com.smola.transport.model.Report;
 import com.smola.transport.model.SummaryReport;
 import com.smola.transport.model.Transit;
@@ -37,18 +37,24 @@ public class ReportServiceImpl implements ReportService {
         return ResponseEntity.status(HttpStatus.OK).body(summaryReport);
     }
 
-    //TODO: add logic here!!!
     private Report calculateReport(List<Transit> transits) {
         BigDecimal summaryPrice = calculateSummaryPrice(transits);
-//        Distance summaryDistance = calculateSummaryDistance(transits);
+        Distance summaryDistance = calculateSummaryDistance(transits);
 
-        return new SummaryReport(summaryPrice);
+        return new SummaryReport(summaryPrice, summaryDistance);
+    }
+
+    private Distance calculateSummaryDistance(List<Transit> transits) {
+        long summaryDistance = transits.stream()
+                .map(Transit::getDistance)
+                .mapToLong(Distance::getMeters).sum();
+        return new Distance(summaryDistance);
     }
 
     private BigDecimal calculateSummaryPrice(List<Transit> transits) {
         return transits.stream()
-                    .map(Transit::getPrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(Transit::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }

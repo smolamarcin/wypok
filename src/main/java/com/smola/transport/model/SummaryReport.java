@@ -1,6 +1,5 @@
 package com.smola.transport.model;
 
-import com.google.maps.model.Distance;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
