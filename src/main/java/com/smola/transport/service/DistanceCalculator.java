@@ -1,11 +1,11 @@
 package com.smola.transport.service;
 
 
-import com.google.maps.model.Distance;
+import com.smola.transport.model.Meters;
 
 import java.util.Optional;
 
 public interface DistanceCalculator {
-    Optional<Distance> calculate(String sourceAddress, String destinationAddress);
+    Optional<Meters> calculate(String sourceAddress, String destinationAddress);
 
 }

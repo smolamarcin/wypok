@@ -24,7 +24,7 @@ class TransitServiceImpl implements TransitService {
     public ResponseEntity<Transit> addTransit(Transit transit) {
         return distanceCalculator.calculate(transit.getSourceAddress(), transit.getDestinationAddress())
                 .map(e -> {
-                    transit.setDistance(e);
+                    transit.setMeters(e);
                     return ResponseEntity.status(HttpStatus.CREATED).body(transitRepository.save(transit));
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());

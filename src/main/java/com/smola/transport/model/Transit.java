@@ -1,15 +1,10 @@
 package com.smola.transport.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.maps.model.Distance;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -22,7 +17,8 @@ public class Transit {
     private String sourceAddress;
     private String destinationAddress;
     private BigDecimal price;
-    private Distance distance;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Meters meters;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
@@ -68,12 +64,12 @@ public class Transit {
         this.id = id;
     }
 
-    public Distance getDistance() {
-        return distance;
+    public Meters getMeters() {
+        return meters;
     }
 
-    public void setDistance(Distance distance) {
-        this.distance = distance;
+    public void setMeters(Meters meters) {
+        this.meters = meters;
     }
 
 }

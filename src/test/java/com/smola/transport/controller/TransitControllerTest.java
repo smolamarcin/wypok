@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,6 +59,12 @@ public class TransitControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(transitJSON))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldReturn_http200_whenTryingToRetrieveAllTransits() throws Exception {
+        this.mockMvc.perform(get(END_POINT))
+                .andExpect(status().isOk());
     }
 
     private Transit createInvalidTransit() {

@@ -8,6 +8,7 @@ import com.google.maps.model.Distance;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
+import com.smola.transport.model.Meters;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,16 @@ class DistanceCalculatorImpl implements DistanceCalculator {
     @Value("${google.api.key}")
     private String apiToken;
 
-    public Optional<Distance> calculate(String sourceAddress, String destinationAddress) {
+    public Optional<Meters> calculate(String sourceAddress, String destinationAddress) {
+        Optional<Distance> googleDistance = calculateGoogleDistance(sourceAddress, destinationAddress);
+        if (googleDistance.isPresent()){
+            Meters meters = new Meters(googleDistance.get().inMeters);
+            return Optional.of(meters);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Distance> calculateGoogleDistance(String sourceAddress, String destinationAddress) {
         Optional<Distance> distance = Optional.empty();
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiToken)

@@ -1,5 +1,6 @@
 package com.smola.transport.service;
 
+import com.google.maps.model.Distance;
 import com.smola.transport.model.Report;
 import com.smola.transport.model.SummaryReport;
 import com.smola.transport.model.Transit;
@@ -38,10 +39,16 @@ public class ReportServiceImpl implements ReportService {
 
     //TODO: add logic here!!!
     private Report calculateReport(List<Transit> transits) {
-        BigDecimal summaryPrice = transits.stream()
-                .map(Transit::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal summaryPrice = calculateSummaryPrice(transits);
+//        Meters summaryDistance = calculateSummaryDistance(transits);
+
         return new SummaryReport(summaryPrice);
+    }
+
+    private BigDecimal calculateSummaryPrice(List<Transit> transits) {
+        return transits.stream()
+                    .map(Transit::getPrice)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }

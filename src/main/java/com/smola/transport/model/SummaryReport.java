@@ -22,6 +22,11 @@ public class SummaryReport implements Report {
         this.price = price;
     }
 
+    public SummaryReport(BigDecimal price, Distance distance) {
+        this.price = price;
+        this.distance = distance;
+    }
+
     public Long getId() {
         return id;
     }
