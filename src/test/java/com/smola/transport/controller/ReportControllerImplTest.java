@@ -50,6 +50,10 @@ public class ReportControllerImplTest {
                 .andExpect(jsonPath("$.distance.meters",is(300)));
     }
 
+    @Test
+    public void shouldReturnFromDateToDateReport() {
+    }
+
     private List<Transit> dummyData() {
         Transit transit = createTransit();
         Transit transit2 = createTransit();

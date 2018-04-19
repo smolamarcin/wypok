@@ -2,11 +2,11 @@ package com.smola.transport.service.distance;
 
 import com.smola.transport.model.common.Distance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Service
+@Component
 class DistanceCalculatorImpl implements DistanceCalculator {
 
     private GoogleApiImpl googleApiImpl;

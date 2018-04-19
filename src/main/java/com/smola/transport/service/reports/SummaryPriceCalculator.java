@@ -2,7 +2,6 @@ package com.smola.transport.service.reports;
 
 import com.smola.transport.model.common.Transit;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
