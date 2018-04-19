@@ -1,6 +1,6 @@
-package com.smola.transport.service;
+package com.smola.transport.service.reports;
 
-import com.smola.transport.model.Report;
+import com.smola.transport.model.reports.Report;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;

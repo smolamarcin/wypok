@@ -1,5 +1,6 @@
-package com.smola.transport.model;
+package com.smola.transport.model.reports;
 
+import com.google.maps.model.Distance;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
-public class SummaryReport implements Report {
+public class DailyReport implements Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,15 +17,6 @@ public class SummaryReport implements Report {
     Distance distance;
 
     BigDecimal price;
-
-    public SummaryReport(BigDecimal price) {
-        this.price = price;
-    }
-
-    public SummaryReport(BigDecimal price, Distance distance) {
-        this.price = price;
-        this.distance = distance;
-    }
 
     public Long getId() {
         return id;
@@ -38,6 +30,9 @@ public class SummaryReport implements Report {
         return distance;
     }
 
+    public void setDistance(Distance distance) {
+        this.distance = distance;
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -47,7 +42,5 @@ public class SummaryReport implements Report {
         this.price = price;
     }
 
-    public void setDistance(Distance distance) {
-        this.distance = distance;
-    }
+
 }

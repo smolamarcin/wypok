@@ -1,4 +1,4 @@
-package com.smola.transport.service;
+package com.smola.transport.service.distance;
 
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;

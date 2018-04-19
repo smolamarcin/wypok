@@ -1,7 +1,7 @@
 package com.smola.transport.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Transit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

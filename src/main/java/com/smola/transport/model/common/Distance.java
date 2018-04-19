@@ -1,9 +1,10 @@
-package com.smola.transport.model;
+package com.smola.transport.model.common;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Embeddable
-public class Distance {
+public class Distance implements Serializable {
     private long meters = 0;
 
     public Distance(long meters) {

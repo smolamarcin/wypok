@@ -1,9 +1,9 @@
-package com.smola.transport.service;
+package com.smola.transport.service.reports;
 
-import com.smola.transport.model.Distance;
-import com.smola.transport.model.Report;
-import com.smola.transport.model.SummaryReport;
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Distance;
+import com.smola.transport.model.reports.Report;
+import com.smola.transport.model.reports.SummaryReport;
+import com.smola.transport.model.common.Transit;
 import com.smola.transport.repository.TransitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

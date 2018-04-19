@@ -1,4 +1,4 @@
-package com.smola.transport.model;
+package com.smola.transport.model.common;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

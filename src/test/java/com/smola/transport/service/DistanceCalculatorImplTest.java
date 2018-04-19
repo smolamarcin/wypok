@@ -1,6 +1,7 @@
 package com.smola.transport.service;
 
-import com.smola.transport.model.Distance;
+import com.smola.transport.model.common.Distance;
+import com.smola.transport.service.distance.DistanceCalculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

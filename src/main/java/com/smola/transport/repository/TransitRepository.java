@@ -1,6 +1,6 @@
 package com.smola.transport.repository;
 
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Transit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

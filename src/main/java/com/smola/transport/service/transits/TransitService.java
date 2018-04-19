@@ -1,6 +1,6 @@
-package com.smola.transport.service;
+package com.smola.transport.service.transits;
 
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Transit;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

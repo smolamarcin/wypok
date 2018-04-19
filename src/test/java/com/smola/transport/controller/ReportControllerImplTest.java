@@ -1,6 +1,6 @@
 package com.smola.transport.controller;
 
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Transit;
 import com.smola.transport.repository.TransitRepository;
 import org.junit.Before;
 import org.junit.Test;

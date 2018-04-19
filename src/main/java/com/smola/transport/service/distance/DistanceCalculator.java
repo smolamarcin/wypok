@@ -1,7 +1,7 @@
-package com.smola.transport.service;
+package com.smola.transport.service.distance;
 
 
-import com.smola.transport.model.Distance;
+import com.smola.transport.model.common.Distance;
 
 import java.util.Optional;
 

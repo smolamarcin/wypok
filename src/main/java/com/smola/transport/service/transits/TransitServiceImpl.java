@@ -1,7 +1,8 @@
-package com.smola.transport.service;
+package com.smola.transport.service.transits;
 
-import com.smola.transport.model.Transit;
+import com.smola.transport.model.common.Transit;
 import com.smola.transport.repository.TransitRepository;
+import com.smola.transport.service.distance.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,10 @@ import java.util.List;
 @Service
 class TransitServiceImpl implements TransitService {
     private TransitRepository transitRepository;
-    private DistanceCalculatorImpl distanceCalculator;
+    private DistanceCalculator distanceCalculator;
 
     @Autowired
-    public TransitServiceImpl(TransitRepository transitRepository, DistanceCalculatorImpl distanceCalculator) {
+    public TransitServiceImpl(TransitRepository transitRepository, DistanceCalculator distanceCalculator) {
         this.transitRepository = transitRepository;
         this.distanceCalculator = distanceCalculator;
     }
