@@ -44,7 +44,7 @@ public class ReportControllerImplTest {
     public void shouldReturn_SummaryReport() throws Exception {
         this.mockMvc.perform(get(END_POINT))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalDistance.inMeters", not(0)));
+                .andExpect(jsonPath("$.price", is(60.0)));
     }
 
     private void fillUpDbWithDummyData() {

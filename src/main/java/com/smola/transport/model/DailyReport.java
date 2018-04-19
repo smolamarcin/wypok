@@ -26,7 +26,6 @@ public class DailyReport implements Report {
         this.id = id;
     }
 
-    @Override
     public Distance getDistance() {
         return distance;
     }

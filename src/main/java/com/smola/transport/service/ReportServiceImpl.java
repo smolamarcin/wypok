@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -37,8 +38,10 @@ public class ReportServiceImpl implements ReportService {
 
     //TODO: add logic here!!!
     private Report calculateReport(List<Transit> transits) {
-        Report report = new SummaryReport();
-        return report;
+        BigDecimal summaryPrice = transits.stream()
+                .map(Transit::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return new SummaryReport(summaryPrice);
     }
 
 }

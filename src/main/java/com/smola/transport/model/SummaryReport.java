@@ -18,6 +18,10 @@ public class SummaryReport implements Report {
 
     BigDecimal price;
 
+    public SummaryReport(BigDecimal price) {
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
@@ -39,7 +43,6 @@ public class SummaryReport implements Report {
         this.price = price;
     }
 
-    @Override
     public void setDistance(Distance distance) {
         this.distance = distance;
     }
