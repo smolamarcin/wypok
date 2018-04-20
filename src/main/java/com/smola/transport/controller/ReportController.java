@@ -1,5 +1,6 @@
 package com.smola.transport.controller;
 
+import com.smola.transport.model.common.DateWrapper;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.service.reports.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ReportController {
     }
 
     @PostMapping("/daily")
-    ResponseEntity<Report> getDailyReport(@RequestBody LocalDate startDate, LocalDate endDate) {
-        return reportService.getDailyReport(startDate, endDate);
+    ResponseEntity<Report> getDailyReport(@RequestBody DateWrapper dateWrapper) {
+        return reportService.getDailyReport(dateWrapper.getStartDate(), dateWrapper.getEndDate());
     }
 
     @GetMapping()
