@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
@@ -27,6 +28,11 @@ public class ReportController {
     @GetMapping()
     ResponseEntity<Report> getSummaryReport(){
         return reportService.getSummaryReport();
+    }
+
+    @GetMapping("/monthly")
+    ResponseEntity<List<Report>> getMonthlyReport(){
+        return reportService.getMonthlyReport();
     }
 
 }
