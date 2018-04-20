@@ -45,20 +45,6 @@ public class ReportServiceImpl implements ReportService {
         return ResponseEntity.status(HttpStatus.OK).body(summaryReport);
     }
 
-    @Override
-    public ResponseEntity<List<Report>> getMonthlyReport() {
-        LocalDate today = LocalDate.now();
-        LocalDate firstDayOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
-        List<Transit> byDateBetween = transitRepository.findByDateBetween(firstDayOfMonth, today);
-        Map<LocalDate, List<Report>> myMap = calculateDailyReports(byDateBetween);
-        return null;
-    }
-
-    private Map<LocalDate, List<Report>> calculateDailyReports(List<Transit> byDateBetween) {
-        //TODO::
-        return null;
-    }
-
     private Report calculateReport(List<Transit> transits) {
         BigDecimal summaryPrice = summaryPriceCalculator.calculate(transits);
         Distance summaryDistance = summaryDistanceCalculator.calculate(transits);

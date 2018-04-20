@@ -4,6 +4,7 @@ import com.smola.transport.model.common.DateWrapper;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.service.reports.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +27,14 @@ public class ReportController {
     }
 
     @GetMapping()
-    ResponseEntity<Report> getSummaryReport(){
+    ResponseEntity<Report> getSummaryReport() {
         return reportService.getSummaryReport();
     }
 
     @GetMapping("/monthly")
-    ResponseEntity<List<Report>> getMonthlyReport(){
-        return reportService.getMonthlyReport();
+    ResponseEntity<List<Report>> getMonthlyReport() {
+//        return reportService.getMonthlyReport();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

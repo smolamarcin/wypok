@@ -9,7 +9,6 @@ import java.util.List;
 public interface ReportService {
     ResponseEntity<Report> getDailyReport(LocalDate startDate, LocalDate endDate);
 
-    ResponseEntity<Report> getSummaryRepottrt();
+    ResponseEntity<Report> getSummaryReport();
 
-    ResponseEntity<List<Report>> getMonthlyReport();
 }
