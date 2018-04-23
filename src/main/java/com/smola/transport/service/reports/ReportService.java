@@ -11,4 +11,5 @@ public interface ReportService {
 
     ResponseEntity<Report> getSummaryReport();
 
+    ResponseEntity<List<Report>> getMonthlyReport();
 }

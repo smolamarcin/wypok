@@ -1,4 +1,4 @@
-package com.smola.transport.service.reports;
+package com.smola.transport.service.reports.logic;
 
 import com.smola.transport.model.common.Transit;
 import org.springframework.stereotype.Component;

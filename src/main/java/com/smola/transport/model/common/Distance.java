@@ -2,6 +2,7 @@ package com.smola.transport.model.common;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class Distance implements Serializable {
@@ -20,5 +21,19 @@ public class Distance implements Serializable {
 
     public void setMeters(long meters) {
         this.meters = meters;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Distance distance = (Distance) o;
+        return meters == distance.meters;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(meters);
     }
 }

@@ -1,12 +1,15 @@
 package com.smola.transport.model.reports;
 
-import com.google.maps.model.Distance;
+
+import com.smola.transport.model.common.Distance;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class DailyReport implements Report {
@@ -17,6 +20,16 @@ public class DailyReport implements Report {
     Distance distance;
 
     BigDecimal price;
+
+    private LocalDate date;
+
+    public DailyReport(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
 
     public Long getId() {
         return id;
@@ -42,5 +55,17 @@ public class DailyReport implements Report {
         this.price = price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyReport that = (DailyReport) o;
+        return Objects.equals(date, that.date);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(date);
+    }
 }

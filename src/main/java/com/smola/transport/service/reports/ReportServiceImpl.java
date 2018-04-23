@@ -1,11 +1,11 @@
 package com.smola.transport.service.reports;
 
 import com.smola.transport.model.common.Distance;
+import com.smola.transport.model.common.Transit;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.model.reports.SummaryReport;
-import com.smola.transport.model.common.Transit;
 import com.smola.transport.repository.TransitRepository;
-import org.apache.tomcat.jni.Local;
+import com.smola.transport.service.reports.logic.ReportCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -33,6 +29,10 @@ public class ReportServiceImpl implements ReportService {
         this.transitRepository = transitRepository;
     }
 
+    public ReportServiceImpl() {
+
+    }
+
     public ResponseEntity<Report> getDailyReport(LocalDate startDate, LocalDate endDate) {
         List<Transit> transits = transitRepository.findByDateBetween(startDate, endDate);
         Report dailyReport = calculateReport(transits);
@@ -43,6 +43,11 @@ public class ReportServiceImpl implements ReportService {
         List<Transit> transits = transitRepository.findAll();
         Report summaryReport = calculateReport(transits);
         return ResponseEntity.status(HttpStatus.OK).body(summaryReport);
+    }
+
+    public ResponseEntity<List<Report>> getMonthlyReport() {
+
+        return null;
     }
 
     private Report calculateReport(List<Transit> transits) {

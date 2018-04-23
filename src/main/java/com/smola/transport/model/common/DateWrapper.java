@@ -1,7 +1,6 @@
 package com.smola.transport.model.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.omg.CORBA.Object;
 
 import java.time.LocalDate;
 
