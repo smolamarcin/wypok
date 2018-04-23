@@ -34,13 +34,13 @@ class MonthlyReportGenerator {
 
         List<Transit> transitsByDateBetween = transitRepository.findByDateBetween(firstDayOfMonth, date);
         Map<LocalDate, List<Transit>> transitsMap = transitsByDateBetween.stream().collect(Collectors.groupingBy(Transit::getDate));
-        transitsMap.values().stream().flatMap(e -> e.stream().map(a -> a.getPrice()));
+        transitsMap.entrySet().stream()
+        transitsMap.values().stream().flatMap(e -> e.stream().map(Transit::getPrice));
 
 //        Set<Map.Entry<LocalDate, List<Transit>>> entries = transitsMap.entrySet();
 //        List<BigDecimal> collect = entries.stream().transitsMap(e -> e.getValue().stream().transitsMap(Transit::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add)).collect(Collectors.toList());
 
 
-        Stream<Map.Entry<LocalDate, List<Transit>>> sums = transitsMap.entrySet().stream().flatMap(e -> e.getValue().stream().map(Transit::getPrice))
         return new MonthlyReport();
     }
 }
