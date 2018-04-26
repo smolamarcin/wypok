@@ -1,6 +1,6 @@
 package com.smola.transport.model.common;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 

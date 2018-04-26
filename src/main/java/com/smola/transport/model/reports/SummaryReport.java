@@ -2,7 +2,6 @@ package com.smola.transport.model.reports;
 
 
 import com.smola.transport.model.common.Distance;
-import com.smola.transport.model.reports.Report;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

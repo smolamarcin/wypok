@@ -43,7 +43,7 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(today);
 
         //then
-        List<Report> dailyReports = reports.getDailyReports();
+        List<DailyReport> dailyReports = reports.getDailyReports();
         assertEquals(4, dailyReports.size());
         assertTrue(dailyReports.contains(new DailyReport(LocalDate.of(2017, 12, 1))));
         assertTrue(dailyReports.contains(new DailyReport(LocalDate.of(2017, 12, 2))));
@@ -62,8 +62,8 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(date);
 
         //then
-        List<Report> dailyReports = reports.getDailyReports();
-        for (Report dailyReport : dailyReports) {
+        List<DailyReport> dailyReports = reports.getDailyReports();
+        for (DailyReport dailyReport : dailyReports) {
             assertEquals(SAMPLE_DISTANCE_PER_DAY, dailyReport.getDistance());
             assertEquals(SAMPLE_PRICE_PER_DAY, dailyReport.getPrice());
         }
@@ -80,9 +80,9 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(date);
 
         //then
-        List<Report> dailyReports = reports.getDailyReports();
+        List<DailyReport> dailyReports = reports.getDailyReports();
         assertEquals(1, dailyReports.size());
-        for (Report dailyReport : dailyReports) {
+        for (DailyReport dailyReport : dailyReports) {
             assertEquals(SAMPLE_PRICE_PER_DAY.multiply(BigDecimal.valueOf(4)), dailyReport.getPrice());
         }
     }

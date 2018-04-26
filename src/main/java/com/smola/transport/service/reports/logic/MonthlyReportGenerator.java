@@ -1,11 +1,10 @@
 package com.smola.transport.service.reports.logic;
 
-import com.smola.transport.model.reports.DailyStatistics;
 import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.common.Transit;
 import com.smola.transport.model.reports.DailyReport;
+import com.smola.transport.model.reports.DailyStatistics;
 import com.smola.transport.model.reports.MonthlyReport;
-import com.smola.transport.model.reports.Report;
 import com.smola.transport.repository.TransitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,7 +38,7 @@ class MonthlyReportGenerator {
                 .stream()
                 .collect(Collectors.groupingBy(Transit::getDate));
 
-        List<Report> dailyReports = transitsMap
+        List<DailyReport> dailyReports = transitsMap
                 .entrySet()
                 .stream()
                 .map(e -> computeDailyStatistics(e.getKey(), e.getValue()))

@@ -1,10 +1,6 @@
 package com.smola.transport.model.reports;
 
-import com.smola.transport.model.common.Distance;
-import com.smola.transport.model.common.Transit;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -13,17 +9,17 @@ public class MonthlyReport implements Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany
-    private List<Report> dailyReports;
+    private List<DailyReport> dailyReports;
 
-    public MonthlyReport(List<Report> dailyReports) {
+    public MonthlyReport(List<DailyReport> dailyReports) {
         this.dailyReports = dailyReports;
     }
 
-    public List<Report> getDailyReports() {
+    public List<DailyReport> getDailyReports() {
         return dailyReports;
     }
 
-    public void setDailyReports(List<Report> dailyReports) {
+    public void setDailyReports(List<DailyReport> dailyReports) {
         this.dailyReports = dailyReports;
     }
 
@@ -35,19 +31,6 @@ public class MonthlyReport implements Report {
         this.id = id;
     }
 
-    @Override
-    public BigDecimal getPrice() {
-        return dailyReports.stream()
-                .map(Report::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
-    @Override
-    public Distance getDistance() {
-        return new Distance(
-                dailyReports.stream()
-                        .map(Report::getDistance)
-                        .mapToLong(Distance::getMeters).sum());
-    }
 }
 
