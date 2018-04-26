@@ -25,6 +25,16 @@ public class Transit {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
 
+    public Transit() {
+    }
+
+    private Transit(Builder builder) {
+        sourceAddress = builder.sourceAddress;
+        destinationAddress = builder.destinationAddress;
+        price = builder.price;
+        distance = builder.distance;
+        date = builder.date;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -58,20 +68,50 @@ public class Transit {
         this.date = date;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Distance getDistance() {
         return distance;
     }
 
     public void setDistance(Distance distance) {
         this.distance = distance;
+    }
+
+    private static class Builder {
+        private String sourceAddress;
+        private String destinationAddress;
+        private BigDecimal price;
+        private Distance distance;
+        private LocalDate date;
+
+        public Builder withSourceAddress(String sourceAddress) {
+            this.sourceAddress = sourceAddress;
+            return this;
+        }
+
+        private Builder withdDstinationAddress(String destinationAddress) {
+            this.destinationAddress = destinationAddress;
+            return this;
+        }
+
+        private Builder withPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        private Builder withDistance(Distance distance) {
+            this.distance = distance;
+            return this;
+        }
+
+        private Builder withDate(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public Transit build() {
+            return new Transit(this);
+        }
+
     }
 
 }

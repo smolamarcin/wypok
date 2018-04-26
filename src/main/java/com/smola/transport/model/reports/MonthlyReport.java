@@ -19,18 +19,6 @@ public class MonthlyReport implements Report {
         return dailyReports;
     }
 
-    public void setDailyReports(List<DailyReport> dailyReports) {
-        this.dailyReports = dailyReports;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
 }
 

@@ -13,11 +13,11 @@ public class DailyStatistics {
         this.summaryPrice = summaryPrice;
     }
 
-    public Distance getSummaryDistance() {
+    Distance getSummaryDistance() {
         return summaryDistance;
     }
 
-    public BigDecimal getSummaryPrice() {
+    BigDecimal getSummaryPrice() {
         return summaryPrice;
     }
 

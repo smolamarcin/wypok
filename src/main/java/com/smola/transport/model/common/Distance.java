@@ -8,19 +8,15 @@ import java.util.Objects;
 public class Distance implements Serializable {
     private long meters = 0;
 
+    public Distance() {
+    }
+
     public Distance(long meters) {
         this.meters = meters;
     }
 
     public long getMeters() {
         return meters;
-    }
-
-    public Distance() {
-    }
-
-    public void setMeters(long meters) {
-        this.meters = meters;
     }
 
     @Override
