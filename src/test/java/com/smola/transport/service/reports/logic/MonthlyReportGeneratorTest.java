@@ -4,6 +4,7 @@ import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.common.Transit;
 import com.smola.transport.model.reports.DailyReport;
 import com.smola.transport.model.reports.MonthlyReport;
+import com.smola.transport.model.reports.Report;
 import com.smola.transport.repository.TransitRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(today);
 
         //then
-        Set<DailyReport> dailyReports = reports.getDailyReports();
+        List<Report> dailyReports = reports.getDailyReports();
         assertEquals(4, dailyReports.size());
         assertTrue(dailyReports.contains(new DailyReport(LocalDate.of(2017, 12, 1))));
         assertTrue(dailyReports.contains(new DailyReport(LocalDate.of(2017, 12, 2))));
@@ -61,8 +62,8 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(date);
 
         //then
-        Set<DailyReport> dailyReports = reports.getDailyReports();
-        for (DailyReport dailyReport : dailyReports) {
+        List<Report> dailyReports = reports.getDailyReports();
+        for (Report dailyReport : dailyReports) {
             assertEquals(SAMPLE_DISTANCE_PER_DAY, dailyReport.getDistance());
             assertEquals(SAMPLE_PRICE_PER_DAY, dailyReport.getPrice());
         }
@@ -79,9 +80,9 @@ public class MonthlyReportGeneratorTest {
         MonthlyReport reports = monthlyReportGenerator.calculate(date);
 
         //then
-        Set<DailyReport> dailyReports = reports.getDailyReports();
+        List<Report> dailyReports = reports.getDailyReports();
         assertEquals(1, dailyReports.size());
-        for (DailyReport dailyReport : dailyReports) {
+        for (Report dailyReport : dailyReports) {
             assertEquals(SAMPLE_PRICE_PER_DAY.multiply(BigDecimal.valueOf(4)), dailyReport.getPrice());
         }
     }

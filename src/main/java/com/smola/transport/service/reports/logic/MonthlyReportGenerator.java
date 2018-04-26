@@ -44,7 +44,7 @@ class MonthlyReportGenerator {
                 .map(e -> computeDailyStatistics(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
 
-        return new MonthlyReport();
+        return new MonthlyReport(dailyReports);
     }
 
     private DailyReport computeDailyStatistics(LocalDate date, List<Transit> transits) {

@@ -1,9 +1,11 @@
 package com.smola.transport.model.reports;
 
+import com.smola.transport.model.common.Distance;
+import com.smola.transport.model.common.Transit;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class MonthlyReport implements Report {
@@ -11,7 +13,19 @@ public class MonthlyReport implements Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany
-    private Set<DailyReport> dailyReports = new HashSet<>();
+    private List<Report> dailyReports;
+
+    public MonthlyReport(List<Report> dailyReports) {
+        this.dailyReports = dailyReports;
+    }
+
+    public List<Report> getDailyReports() {
+        return dailyReports;
+    }
+
+    public void setDailyReports(List<Report> dailyReports) {
+        this.dailyReports = dailyReports;
+    }
 
     public Long getId() {
         return id;
@@ -21,16 +35,19 @@ public class MonthlyReport implements Report {
         this.id = id;
     }
 
-    public void setDailyReports(Set<DailyReport> dailyReports) {
-        this.dailyReports = dailyReports;
+    @Override
+    public BigDecimal getPrice() {
+        return dailyReports.stream()
+                .map(Report::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Set<DailyReport> getDailyReports() {
-        return dailyReports;
-    }
-
-    public void addDailyReport(DailyReport report) {
-        dailyReports.add(report);
+    @Override
+    public Distance getDistance() {
+        return new Distance(
+                dailyReports.stream()
+                        .map(Report::getDistance)
+                        .mapToLong(Distance::getMeters).sum());
     }
 }
 
