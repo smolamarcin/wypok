@@ -19,7 +19,6 @@ public class Distance implements Serializable {
         return meters;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -27,7 +26,6 @@ public class Distance implements Serializable {
         return meters == distance.meters;
     }
 
-    @Override
     public int hashCode() {
         return Objects.hash(meters);
     }

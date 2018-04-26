@@ -28,10 +28,7 @@ public class MonthlyReportGeneratorTest {
     @Before
     public void setUp() {
         transitRepository = mock(TransitRepository.class);
-        monthlyReportGenerator = new MonthlyReportGenerator(transitRepository,
-                mock(SummaryPriceCalculator.class),
-                mock(SummaryDistanceCalculator.class)
-                );
+        monthlyReportGenerator = new MonthlyReportGenerator(transitRepository);
     }
 
     @Test

@@ -18,16 +18,10 @@ import java.util.stream.Collectors;
 @Component("monthlyReportGenerator")
 public class MonthlyReportGenerator {
     private TransitRepository transitRepository;
-    private ReportCalculator summaryPriceCalculator;
-    private ReportCalculator summaryDistanceCalculator;
 
     @Autowired
-    public MonthlyReportGenerator(TransitRepository transitRepository,
-                                  SummaryPriceCalculator summaryPriceCalculator,
-                                  SummaryDistanceCalculator summaryDistanceCalculator) {
+    public MonthlyReportGenerator(TransitRepository transitRepository) {
         this.transitRepository = transitRepository;
-        this.summaryPriceCalculator = summaryPriceCalculator;
-        this.summaryDistanceCalculator = summaryDistanceCalculator;
     }
 
 
