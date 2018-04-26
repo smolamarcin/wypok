@@ -1,5 +1,6 @@
 package com.smola.transport.service.reports;
 
+import com.smola.transport.model.reports.MonthlyReport;
 import com.smola.transport.model.reports.Report;
 import org.springframework.http.ResponseEntity;
 
@@ -11,5 +12,5 @@ public interface ReportService {
 
     ResponseEntity<Report> getSummaryReport();
 
-    ResponseEntity<List<Report>> getMonthlyReport();
+    ResponseEntity<MonthlyReport> getMonthlyReport();
 }

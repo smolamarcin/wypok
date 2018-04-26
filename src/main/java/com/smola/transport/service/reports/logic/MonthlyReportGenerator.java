@@ -9,28 +9,29 @@ import com.smola.transport.repository.TransitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
-class MonthlyReportGenerator {
+@Component("monthlyReportGenerator")
+public class MonthlyReportGenerator {
     private TransitRepository transitRepository;
-    private ReportCalculator reportCalculator;
-    @Resource(name = "summaryPriceCalculator")
-    private ReportCalculator<BigDecimal, Transit> summaryPriceCalculator;
-    @Resource(name = "summaryDistanceCalculator")
-    private ReportCalculator<Distance, Transit> summaryDistanceCalculator;
+    private ReportCalculator summaryPriceCalculator;
+    private ReportCalculator summaryDistanceCalculator;
 
     @Autowired
-    MonthlyReportGenerator(TransitRepository transitRepository) {
+    public MonthlyReportGenerator(TransitRepository transitRepository,
+                                  SummaryPriceCalculator summaryPriceCalculator,
+                                  SummaryDistanceCalculator summaryDistanceCalculator) {
         this.transitRepository = transitRepository;
+        this.summaryPriceCalculator = summaryPriceCalculator;
+        this.summaryDistanceCalculator = summaryDistanceCalculator;
     }
 
-    MonthlyReport calculate(LocalDate date) {
+
+    public MonthlyReport calculate(LocalDate date) {
         LocalDate firstDayOfMonth = date.withDayOfMonth(1);
 
         List<Transit> transitsByDateBetween = transitRepository.findByDateBetween(firstDayOfMonth, date);

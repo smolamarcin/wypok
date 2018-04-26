@@ -4,7 +4,6 @@ import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.common.Transit;
 import com.smola.transport.model.reports.DailyReport;
 import com.smola.transport.model.reports.MonthlyReport;
-import com.smola.transport.model.reports.Report;
 import com.smola.transport.repository.TransitRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,10 +24,14 @@ public class MonthlyReportGeneratorTest {
     private TransitRepository transitRepository;
     private MonthlyReportGenerator monthlyReportGenerator;
 
+
     @Before
     public void setUp() {
         transitRepository = mock(TransitRepository.class);
-        monthlyReportGenerator = new MonthlyReportGenerator(transitRepository);
+        monthlyReportGenerator = new MonthlyReportGenerator(transitRepository,
+                mock(SummaryPriceCalculator.class),
+                mock(SummaryDistanceCalculator.class)
+                );
     }
 
     @Test

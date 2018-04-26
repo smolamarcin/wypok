@@ -41,6 +41,13 @@ public class DailyReport implements Report {
         return price;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public MonthlyReport getMonthlyReport() {
+        return monthlyReport;
+    }
 
     @Override
     public boolean equals(Object o) {
