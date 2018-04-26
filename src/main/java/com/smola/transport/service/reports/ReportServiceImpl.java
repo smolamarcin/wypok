@@ -29,9 +29,6 @@ public class ReportServiceImpl implements ReportService {
         this.transitRepository = transitRepository;
     }
 
-    public ReportServiceImpl() {
-
-    }
 
     public ResponseEntity<Report> getDailyReport(LocalDate startDate, LocalDate endDate) {
         List<Transit> transits = transitRepository.findByDateBetween(startDate, endDate);
