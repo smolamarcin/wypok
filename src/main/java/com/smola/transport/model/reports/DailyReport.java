@@ -3,10 +3,7 @@ package com.smola.transport.model.reports;
 
 import com.smola.transport.model.common.Distance;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -17,11 +14,29 @@ public class DailyReport implements Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    Distance distance;
-
-    BigDecimal price;
+    private Distance distance;
 
     private LocalDate date;
+
+    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn
+    private MonthlyReport monthlyReport;
+
+
+    public DailyReport(LocalDate date, DailyStatistics dailyStatistics) {
+        this.date = date;
+        this.distance = dailyStatistics.getSummaryDistance();
+        this.price = dailyStatistics.getSummaryPrice();
+    }
+
+    public MonthlyReport getMonthlyReport() {
+        return monthlyReport;
+    }
+
+    public void setMonthlyReport(MonthlyReport monthlyReport) {
+        this.monthlyReport = monthlyReport;
+    }
 
     public DailyReport(LocalDate date) {
         this.date = date;

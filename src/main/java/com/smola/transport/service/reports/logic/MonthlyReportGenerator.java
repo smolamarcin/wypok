@@ -1,9 +1,11 @@
 package com.smola.transport.service.reports.logic;
 
+import com.smola.transport.model.reports.DailyStatistics;
 import com.smola.transport.model.common.Distance;
 import com.smola.transport.model.common.Transit;
 import com.smola.transport.model.reports.DailyReport;
 import com.smola.transport.model.reports.MonthlyReport;
+import com.smola.transport.model.reports.Report;
 import com.smola.transport.repository.TransitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 class MonthlyReportGenerator {
@@ -33,14 +34,28 @@ class MonthlyReportGenerator {
         LocalDate firstDayOfMonth = date.withDayOfMonth(1);
 
         List<Transit> transitsByDateBetween = transitRepository.findByDateBetween(firstDayOfMonth, date);
-        Map<LocalDate, List<Transit>> transitsMap = transitsByDateBetween.stream().collect(Collectors.groupingBy(Transit::getDate));
-        transitsMap.entrySet().stream()
-        transitsMap.values().stream().flatMap(e -> e.stream().map(Transit::getPrice));
+        Map<LocalDate, List<Transit>> transitsMap = transitsByDateBetween
+                .stream()
+                .collect(Collectors.groupingBy(Transit::getDate));
 
-//        Set<Map.Entry<LocalDate, List<Transit>>> entries = transitsMap.entrySet();
-//        List<BigDecimal> collect = entries.stream().transitsMap(e -> e.getValue().stream().transitsMap(Transit::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add)).collect(Collectors.toList());
-
+        List<Report> dailyReports = transitsMap
+                .entrySet()
+                .stream()
+                .map(e -> computeDailyStatistics(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
 
         return new MonthlyReport();
+    }
+
+    private DailyReport computeDailyStatistics(LocalDate date, List<Transit> transits) {
+        return new DailyReport(date, new DailyStatistics(
+                new Distance(
+                        transits.stream()
+                                .map(Transit::getDistance)
+                                .mapToLong(Distance::getMeters).sum()),
+                transits.stream()
+                        .map(Transit::getPrice)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        ));
     }
 }

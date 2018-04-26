@@ -33,7 +33,6 @@ public class Distance implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(meters);
     }
 }
