@@ -1,12 +1,12 @@
 package com.smola.transport.model.reports;
 
-import com.google.maps.model.Distance;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.smola.transport.model.common.Distance;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class DailyReport implements Report {
@@ -14,33 +14,51 @@ public class DailyReport implements Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    Distance distance;
+    private Distance distance;
 
-    BigDecimal price;
+    private LocalDate date;
 
-    public Long getId() {
-        return id;
+    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn
+    private MonthlyReport monthlyReport;
+
+    public DailyReport(LocalDate date, DailyStatistics dailyStatistics) {
+        this.date = date;
+        this.distance = dailyStatistics.getSummaryDistance();
+        this.price = dailyStatistics.getSummaryPrice();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public DailyReport(LocalDate date) {
+        this.date = date;
     }
 
     public Distance getDistance() {
         return distance;
     }
 
-    public void setDistance(Distance distance) {
-        this.distance = distance;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public LocalDate getDate() {
+        return date;
     }
 
+    public MonthlyReport getMonthlyReport() {
+        return monthlyReport;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyReport that = (DailyReport) o;
+        return Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date);
+    }
 }

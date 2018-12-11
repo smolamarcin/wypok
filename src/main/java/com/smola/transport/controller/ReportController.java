@@ -1,15 +1,12 @@
 package com.smola.transport.controller;
 
 import com.smola.transport.model.common.DateWrapper;
+import com.smola.transport.model.reports.MonthlyReport;
 import com.smola.transport.model.reports.Report;
 import com.smola.transport.service.reports.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
@@ -32,9 +29,8 @@ public class ReportController {
     }
 
     @GetMapping("/monthly")
-    ResponseEntity<List<Report>> getMonthlyReport() {
-//        return reportService.getMonthlyReport();
-        return ResponseEntity.status(HttpStatus.OK).build();
+    ResponseEntity<MonthlyReport> getMonthlyReport() {
+        return reportService.getMonthlyReport();
     }
 
 }

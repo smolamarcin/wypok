@@ -2,7 +2,6 @@ package com.smola.transport.model.reports;
 
 
 import com.smola.transport.model.common.Distance;
-import com.smola.transport.model.reports.Report;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,41 +15,20 @@ public class SummaryReport implements Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    Distance distance;
+    private Distance distance;
 
-    BigDecimal price;
-
-    public SummaryReport(BigDecimal price) {
-        this.price = price;
-    }
+    private BigDecimal price;
 
     public SummaryReport(BigDecimal price, Distance distance) {
         this.price = price;
         this.distance = distance;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Distance getDistance() {
         return distance;
     }
 
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setDistance(Distance distance) {
-        this.distance = distance;
     }
 }

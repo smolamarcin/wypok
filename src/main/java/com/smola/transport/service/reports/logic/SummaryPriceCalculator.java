@@ -1,4 +1,4 @@
-package com.smola.transport.service.reports;
+package com.smola.transport.service.reports.logic;
 
 import com.smola.transport.model.common.Transit;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Component("summaryPriceCalculator")
+@Component
 public class SummaryPriceCalculator implements ReportCalculator<BigDecimal, Transit> {
     public BigDecimal calculate(List<Transit> transits) {
         return transits.stream()

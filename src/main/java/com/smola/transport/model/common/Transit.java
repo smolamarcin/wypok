@@ -25,7 +25,6 @@ public class Transit {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
 
-
     public LocalDate getDate() {
         return date;
     }
@@ -58,14 +57,6 @@ public class Transit {
         this.date = date;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Distance getDistance() {
         return distance;
     }
@@ -73,5 +64,7 @@ public class Transit {
     public void setDistance(Distance distance) {
         this.distance = distance;
     }
+
+
 
 }

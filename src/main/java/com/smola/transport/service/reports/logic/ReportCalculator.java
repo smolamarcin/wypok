@@ -1,6 +1,4 @@
-package com.smola.transport.service.reports;
-
-import com.smola.transport.model.common.Transit;
+package com.smola.transport.service.reports.logic;
 
 import java.util.List;
 
